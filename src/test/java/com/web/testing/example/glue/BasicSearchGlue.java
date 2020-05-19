@@ -4,6 +4,7 @@ import com.web.testing.example.factory.BrowserFactory;
 import com.web.testing.example.pageobject.HomePageObject;
 import com.web.testing.example.pageobject.SearchResultPageObject;
 import com.web.testing.example.pageobject.observer.NewCustomerPopUpObservable;
+import com.web.testing.example.pageobject.observer.ProductNotFoundObservable;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -14,6 +15,7 @@ public class BasicSearchGlue {
 	private String basedOnExternalParam;
 	private BrowserFactory browserFactory;
 	private NewCustomerPopUpObservable popUpObservable;
+	private ProductNotFoundObservable productNotFoundObservable;
 	private HomePageObject homePage;
 	private SearchResultPageObject searchResultPage;
 	private String sutUrl;
@@ -53,12 +55,22 @@ public class BasicSearchGlue {
 		popUpObservable
 			.addObserver(searchResultPage)
 			.update();
+		
+		productNotFoundObservable = new ProductNotFoundObservable();
+		productNotFoundObservable
+			.addObserver(homePage)
+			.update();
 	}
 
 	@When("select the second article from the second page")
 	public void select_the_second_article_from_the_second_page() {
-//	     Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
+		searchResultPage.goToPage(2);
+		
+		productNotFoundObservable
+			.addObserver(searchResultPage)
+			.update();
+		
+//		searchResultPage.openProductNumber(2);
 	}
 
 	@Then("I should see at least {int} item available to be purchased")

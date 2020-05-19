@@ -10,15 +10,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 
-public class NewCustomerPopUp {
+public class ProductNotFoundSection {
 	private WebDriver driver;
-	private By closeButton = By.className("next-dialog-close");
+	private By errrorIcon = By.className("next-icon-error");
 	
-	public NewCustomerPopUp(WebDriver driver) {
+	public ProductNotFoundSection(WebDriver driver) {
 		this.driver = driver;
 	}
 	
-	public boolean getPopUpState() {
+	public boolean getErrorState() {
 		Wait<WebDriver> wait;
 		try {
 			wait = new FluentWait<WebDriver>(driver)
@@ -26,21 +26,12 @@ public class NewCustomerPopUp {
 		                .pollingEvery(Duration.ofSeconds(1))
 		                .ignoring(NoSuchElementException.class);
 			
-			return wait.until(ExpectedConditions.presenceOfElementLocated(closeButton)).isDisplayed();
+			return wait.until(ExpectedConditions.presenceOfElementLocated(errrorIcon)).isDisplayed();
 			
 		} catch(TimeoutException e) {
 			return false;
 		}
 		
-	}
-	
-	public void close() {
-		driver.findElement(closeButton).click();
-	}
-	
-	//Callings?
-	public WebDriver getBrowserInstance() {
-		return this.driver;
 	}
 
 }

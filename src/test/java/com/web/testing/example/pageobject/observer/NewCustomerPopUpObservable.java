@@ -8,11 +8,11 @@ import org.openqa.selenium.WebDriver;
 import com.web.testing.example.pageobject.section.NewCustomerPopUp;
 
 public class NewCustomerPopUpObservable {
-	private List<ObserverPopUp> observers = new ArrayList<ObserverPopUp>();
+	private List<ObserverPage> observers = new ArrayList<ObserverPage>();
 	private WebDriver driver;
 	private NewCustomerPopUp popUp;
 	
-    public NewCustomerPopUpObservable addObserver(ObserverPopUp observer) {
+    public NewCustomerPopUpObservable addObserver(ObserverPage observer) {
     	this.driver = observer.getBrowserInstance();
         this.observers.add(observer);
         return this;
@@ -24,7 +24,7 @@ public class NewCustomerPopUpObservable {
     }
     
     public void update() {
-    	for(ObserverPopUp observer : observers) {
+    	for(ObserverPage observer : observers) {
     		observer.newCustomerPopUpAppeared(popUpNotification());
     	}
     }
