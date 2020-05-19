@@ -12,8 +12,7 @@ import org.openqa.selenium.support.ui.Wait;
 
 public class NewCustomerPopUp {
 	private WebDriver driver;
-	private By popUp = By.xpath("/html/body/div[5]/div/div");
-	private By closeButton = By.xpath("/html/body/div[5]/div/div/a");
+	private By closeButton = By.className("next-dialog-close");
 	
 	public NewCustomerPopUp(WebDriver driver) {
 		this.driver = driver;
@@ -27,7 +26,7 @@ public class NewCustomerPopUp {
 		                .pollingEvery(Duration.ofSeconds(1))
 		                .ignoring(NoSuchElementException.class);
 			
-			return wait.until(ExpectedConditions.presenceOfElementLocated(popUp)).isDisplayed();
+			return wait.until(ExpectedConditions.presenceOfElementLocated(closeButton)).isDisplayed();
 			
 		} catch(TimeoutException e) {
 			return false;

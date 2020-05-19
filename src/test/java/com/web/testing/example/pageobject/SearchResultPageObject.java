@@ -30,6 +30,11 @@ public class SearchResultPageObject implements ObserverPopUp {
 		locator.replace("PAGENUMBER", number);
 		return By.xpath(locator);
 	}
+	
+	@Override
+	public WebDriver getBrowserInstance() {
+		return this.driver;
+	}
 
 	@Override
 	public boolean newCustomerPopUpAppeared(boolean notification) {

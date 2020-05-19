@@ -37,6 +37,7 @@ public class HomePageObject implements ObserverPopUp {
 		return new SearchResultPageObject(driver);
 	}
 	
+	@Override
 	public WebDriver getBrowserInstance() {
 		return this.driver;
 	}

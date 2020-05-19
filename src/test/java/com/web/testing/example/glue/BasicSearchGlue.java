@@ -40,7 +40,7 @@ public class BasicSearchGlue {
 		homePage.open(sutUrl);
 		
 		//mediator required in here.
-		popUpObservable = new NewCustomerPopUpObservable(homePage.getBrowserInstance());
+		popUpObservable = new NewCustomerPopUpObservable();
 		popUpObservable
 			.addObserver(homePage)
 			.update();

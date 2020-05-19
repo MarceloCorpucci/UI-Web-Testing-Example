@@ -12,11 +12,8 @@ public class NewCustomerPopUpObservable {
 	private WebDriver driver;
 	private NewCustomerPopUp popUp;
 	
-	public NewCustomerPopUpObservable(WebDriver driver) {
-		this.driver = driver;
-	}
-	
     public NewCustomerPopUpObservable addObserver(ObserverPopUp observer) {
+    	this.driver = observer.getBrowserInstance();
         this.observers.add(observer);
         return this;
     }
