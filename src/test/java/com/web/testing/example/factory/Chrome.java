@@ -9,6 +9,7 @@ public class Chrome implements Browser {
 	@Override
 	public WebDriver getDefaultVersion() {
 		driver = new ChromeDriver();
+		driver.manage().window().maximize();
 		return driver;
 	}
 

@@ -66,11 +66,15 @@ public class BasicSearchGlue {
 	public void select_the_second_article_from_the_second_page() {
 		searchResultPage.goToPage(2);
 		
+		popUpObservable
+			.addObserver(searchResultPage)
+			.update();
+		
 		productNotFoundObservable
 			.addObserver(searchResultPage)
 			.update();
 		
-//		searchResultPage.openProductNumber(2);
+		searchResultPage.openProductNumber(2);
 	}
 
 	@Then("I should see at least {int} item available to be purchased")

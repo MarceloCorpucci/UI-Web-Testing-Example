@@ -22,20 +22,24 @@ public class SearchResultPageObject implements ObserverPage {
 		pNumber = Integer.toString(pageNumber);
 		
 		((JavascriptExecutor) driver).executeScript("window.scrollBy(0,document.body.scrollHeight)");
-		
-		WebDriverWait waitForAvailability = new WebDriverWait(driver, 10);
-		waitForAvailability.until(ExpectedConditions.presenceOfElementLocated(pageNumberButton(pNumber)));
-		
-		driver.findElement(pageNumberButton(Integer.toString(pageNumber))).click();
+		((JavascriptExecutor) driver).executeScript("window.scrollBy(0,-300)");
 		
 		WebDriverWait waitForUrl = new WebDriverWait(driver, 10);
-		waitForUrl.until(ExpectedConditions.urlContains("page=" + pNumber));
+		waitForUrl.until(ExpectedConditions.presenceOfElementLocated(By.className("next-input")));
+		
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[3]/div/div[1]/div/div/button[2]")).click();
 		
 		return this;
 	}
 	
 	public ProductPageObject openProductNumber(int productNumber) {
-		driver.findElement(By.cssSelector("product-index=\"2\"")).click();
+		String prdNumber = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]/ul/li[2]/div/div[2]/div[1]/div[1]/a"; // + Integer.toString(productNumber);
+		By prodTile = By.xpath(prdNumber);
+		
+		WebDriverWait waitForUrl = new WebDriverWait(driver, 5);
+		waitForUrl.until(ExpectedConditions.presenceOfElementLocated(prodTile));
+		
+		driver.findElement(prodTile).click();
 		
 		return new ProductPageObject(driver);
 	}
@@ -65,9 +69,9 @@ public class SearchResultPageObject implements ObserverPage {
 		return false;
 	}
 	
-	private By pageNumberButton(String number) {
-		String locator = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[3]/div/div[1]/div/div/button[PAGENUMBER]";
-		locator = locator.replace("PAGENUMBER", number);
-		return By.xpath(locator);
-	}
+//	private By pageNumberButton(String number) {
+//		String locator = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[3]/div/div[1]/div/div/button[PAGENUMBER]";
+//		locator = locator.replace("PAGENUMBER", number);
+//		return By.xpath(locator);
+//	}
 }
