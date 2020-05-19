@@ -26,6 +26,8 @@ public class HomePageObject implements ObserverPage {
 		WebDriverWait waitForAvailability = new WebDriverWait(driver, 10);
 		waitForAvailability.until(ExpectedConditions.elementToBeClickable(searchInput));
 		
+		System.out.println("HomePageObject - open()");
+		
 		return this;
 	}
 	
@@ -40,6 +42,8 @@ public class HomePageObject implements ObserverPage {
 		WebDriverWait waitForAvailability = new WebDriverWait(driver, 10);
 		waitForAvailability.until(ExpectedConditions.urlContains("wholesale"));
 		
+		System.out.println("HomePageObject - search(productName)");
+		
 		return new SearchResultPageObject(driver);
 	}
 	
@@ -53,6 +57,7 @@ public class HomePageObject implements ObserverPage {
 		this.newCustomerPopUp = new NewCustomerPopUp(driver);
 		
 		if(notification == true) {
+			System.out.println("HomePageObject - newCustomerPopUpAppeared(notification) returned true, closing popUp.");
 			newCustomerPopUp.close();
 		}
 		
@@ -62,6 +67,7 @@ public class HomePageObject implements ObserverPage {
 	@Override
 	public boolean gotProductNotFound(boolean notification) {
 		if(notification == true) {
+			System.out.println("HomePageObject - gotProductNotFound(notification) returned true, calling search(productName) again.");
 			this.search(productName);
 		}
 		

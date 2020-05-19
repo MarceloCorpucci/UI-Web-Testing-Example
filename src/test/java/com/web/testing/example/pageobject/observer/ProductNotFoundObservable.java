@@ -1,22 +1,22 @@
 package com.web.testing.example.pageobject.observer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.openqa.selenium.WebDriver;
 
 import com.web.testing.example.pageobject.section.ProductNotFoundSection;
 
 public class ProductNotFoundObservable {
-	private List<ObserverPage> observers = new ArrayList<ObserverPage>();
+	private ObserverPage currentObserver;
 	private WebDriver driver;
 	private ProductNotFoundSection productNotFound;
 	
-	public ProductNotFoundObservable addObserver(ObserverPage observer) {
+	public ProductNotFoundObservable setObserver(ObserverPage observer) {
     	this.driver = observer.getBrowserInstance();
-        this.observers.add(observer);
-        return this;
-    }
+    	this.currentObserver = observer;
+      
+    	System.out.println("ProductNotFoundObservable - setObserver(): " + String.valueOf(observer.getClass()));
+      
+    	return this;	
+	}
 
     public boolean productNotFoundNotification() {
     	this.productNotFound = new ProductNotFoundSection(driver);
@@ -24,8 +24,7 @@ public class ProductNotFoundObservable {
     }
     
     public void update() {
-    	for(ObserverPage observer : observers) {
-    		observer.gotProductNotFound(productNotFoundNotification());
-    	}
+		System.out.println("ProductNotFoundObservable - update() - productNotFoundNotification(): " + String.valueOf(productNotFoundNotification()));
+		currentObserver.gotProductNotFound(productNotFoundNotification());
     }	
 }
