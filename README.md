@@ -6,15 +6,15 @@ Also, its code structure follows several good practices and design patterns. For
 
 ### Prerequisites
 
-Given this framework is orchestrated by [Apache Maven](https://maven.apache.org/), you need to install it follow the 
-[official instructions](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html). 
+Given this framework is orchestrated by [Apache Maven](https://maven.apache.org/), to run any test (in fact, to do any task) you need to 
+install it following the [official instructions](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html). 
 
-Another alternative you can use is the maven instance embedded in the IDE of your choice, such as Eclipse.
+Another alternative to utilize this framework is the maven instance embedded in the IDE of your choice, such as Eclipse.
 
 In case you want to run this framework using RemoteWebDriver or if you want to take advantage of the reporting capabilities
-included in here, [Docker](https://www.docker.com/get-started) needs to be installed.
+included in here, [Docker](https://www.docker.com/get-started) needs to be installed, also.
 
-If you want to run the framework on a local browser, currently the one supported out of the box is Chrome. You will
+If you want to run the framework using a local browser, currently the one supported out of the box is Chrome. You will
 need the latest browser version and the latest [ChromeDriver](https://chromedriver.chromium.org/downloads) installed. Bear in mind 
 the folder on which you want to store this last one, because you will need to reference that path to the framework. 
 See Running test for a more detailed description.
