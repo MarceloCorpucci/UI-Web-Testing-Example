@@ -18,7 +18,10 @@ public class ProductPageObject implements ObserverPage {
 	private static Logger logger = LoggerFactory.getLogger(ProductPageObject.class);
 	
 	private WebDriver driver;
+	
 	private NewCustomerPopUp newCustomerPopUp;
+	
+	private By itemAmountLocator =  By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[2]/div[8]/span/span/span[2]/input");
 	
 	public ProductPageObject(WebDriver driver) {
 		this.driver = driver;
@@ -50,8 +53,7 @@ public class ProductPageObject implements ObserverPage {
 		
 		logger.info("Method called - getAvailability(): scroll to product Qty.");
 		
-		String itemAmount = "//*[@id=\"root\"]/div/div[2]/div/div[2]/div[8]/span/span/span[2]/input";
-		return Integer.parseInt(driver.findElement(By.xpath(itemAmount)).getAttribute("aria-valuemin"));
+		return Integer.parseInt(driver.findElement(itemAmountLocator).getAttribute("aria-valuemin"));
 	}
 
 	@Override

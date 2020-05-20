@@ -16,7 +16,9 @@ public class SearchResultPageObject implements ObserverPage {
 	private static Logger logger = LoggerFactory.getLogger(SearchResultPageObject.class);
 	
 	private WebDriver driver;
+	
 	private NewCustomerPopUp newCustomerPopUp;
+	
 	private String pNumber;
 	
 	public SearchResultPageObject(WebDriver driver) {
@@ -38,21 +40,20 @@ public class SearchResultPageObject implements ObserverPage {
 		
 		logger.info("Method called - goToPage(pageNumber): Waiting for page button to be located.");
 		
-		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[3]/div/div[1]/div/div/button[2]")).click();
+		driver.findElement((pageNumberButton(pNumber))).click();
 		
 		return this;
 	}
 	
 	public ProductPageObject openProductNumber(int productNumber) {
-		logger.info("Method called - openProductNumber(productNumber): " + Integer.toString(productNumber));
+		String prdNumber = Integer.toString(productNumber);
 		
-		String prdNumber = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]/ul/li[2]/div/div[2]/div[1]/div[1]/a"; // + Integer.toString(productNumber);
-		By prodTile = By.xpath(prdNumber);
+		logger.info("Method called - openProductNumber(productNumber): " + prdNumber);
 		
 		WebDriverWait waitForElement = new WebDriverWait(driver, 5);
-		waitForElement.until(ExpectedConditions.presenceOfElementLocated(prodTile));
+		waitForElement.until(ExpectedConditions.presenceOfElementLocated(prodNumberLocator(prdNumber)));
 		
-		driver.findElement(prodTile).click();
+		driver.findElement(prodNumberLocator(prdNumber)).click();
 		
 		logger.info("Method called - openProductNumber(productNumber): Product selected.");
 		
@@ -86,9 +87,14 @@ public class SearchResultPageObject implements ObserverPage {
 		return false;
 	}
 	
-//	private By pageNumberButton(String number) {
-//		String locator = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[3]/div/div[1]/div/div/button[PAGENUMBER]";
-//		locator = locator.replace("PAGENUMBER", number);
-//		return By.xpath(locator);
-//	}
+	private By pageNumberButton(String number) {
+		String locator = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[3]/div/div[1]/div/div/button[PAGENUMBER]";
+		locator = locator.replace("PAGENUMBER", number);
+		return By.xpath(locator);
+	}
+	
+	private By prodNumberLocator(String number) {
+		String prdNumber = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]/ul/li[" + number + "]/div/div[2]/div[1]/div[1]/a";
+		return By.xpath(prdNumber);
+	}
 }

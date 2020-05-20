@@ -14,10 +14,14 @@ import com.web.testing.example.pageobject.section.NewCustomerPopUp;
 
 public class HomePageObject implements ObserverPage {
 	private static Logger logger = LoggerFactory.getLogger(HomePageObject.class);
+	
 	private WebDriver driver;
+	
 	private NewCustomerPopUp newCustomerPopUp;
+	
 	private By searchInput = By.id("search-key");
 	private By searchButton = By.id("search-cate");
+	
 	private String productName;
 	
 	public HomePageObject(WebDriver driver) {
