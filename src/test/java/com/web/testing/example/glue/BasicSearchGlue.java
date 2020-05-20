@@ -1,6 +1,5 @@
 package com.web.testing.example.glue;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,14 +42,16 @@ public class BasicSearchGlue {
 		System.setProperty("sutUrl", "https://www.aliexpress.com/");
 		
 		basedOnExternalParam = String.valueOf(System.getProperty("browser"));
+		logger.info("Scenario setUp() - Browser defined in env. variable: " + basedOnExternalParam);
+
 		sutUrl = String.valueOf(System.getProperty("sutUrl"));
+		logger.info("Scenario setUp() - SUT Url defined in env. variable: " + sutUrl);
 		
 		browserFactory = new BrowserFactory();
 		homePage = new HomePageObject(browserFactory
 										.create(basedOnExternalParam)
 										.getDefaultVersion());
 		
-		logger.info("Scenario setUp() - Got Browser: " + basedOnExternalParam + " ===========");
 		
 	}
 	
