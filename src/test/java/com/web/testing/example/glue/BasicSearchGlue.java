@@ -13,6 +13,7 @@ import com.web.testing.example.pageobject.SearchResultPageObject;
 import com.web.testing.example.pageobject.observer.NewCustomerPopUpObservable;
 import com.web.testing.example.pageobject.observer.ProductNotFoundObservable;
 
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -61,7 +62,6 @@ public class BasicSearchGlue {
 
 		homePage.open(sutUrl);
 		
-		//mediator required in here.
 		popUpObservable = new NewCustomerPopUpObservable();
 		popUpObservable
 			.setObserver(homePage)
@@ -119,5 +119,11 @@ public class BasicSearchGlue {
 		logger.info("Asserting productQty: " + Integer.toString(productQty) + " | Expected Amount: " + expectedAmount);
 		
 		assertThat(productQty, equalTo(expectedAmount));
+	}
+	
+	@After
+	public void tearDown() {
+		logger.info("Scenario tearDown() - killing browser instance.");
+		productPage.getBrowserInstance().quit();
 	}
 }
