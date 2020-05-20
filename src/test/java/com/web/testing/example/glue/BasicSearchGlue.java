@@ -37,12 +37,6 @@ public class BasicSearchGlue {
 	
 	@Before
 	public void setUp() {
-		System.setProperty("browser", "REMOTE_CHROME");
-		System.setProperty("webdriver.chrome.driver", "/Users/marcelocorpucci/Chromedriver/chromedriver");
-		System.setProperty("remote.browser.url", "http://localhost:4444/wd/hub");
-//		System.setProperty("webdriver.chrome.silentOutput", "true");
-		System.setProperty("sutUrl", "https://www.aliexpress.com/");
-		
 		basedOnExternalParam = System.getProperty("browser");
 		logger.info("Scenario setUp() - Browser defined in env. variable: " + basedOnExternalParam);
 
@@ -53,8 +47,6 @@ public class BasicSearchGlue {
 		homePage = new HomePageObject(browserFactory
 										.create(basedOnExternalParam)
 										.getDefaultVersion());
-		
-		
 	}
 	
 	@Given("I've entered into AliExpress")

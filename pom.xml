@@ -22,6 +22,7 @@
 		<hamcrest.version>1.3</hamcrest.version>
 		<cucumber.version>4.8.1</cucumber.version>
 		<selenium.version>3.14.0</selenium.version>
+		<allure.version>2.13.3</allure.version>
 	</properties>
 
 	<dependencies>
@@ -74,6 +75,12 @@
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-support</artifactId>
 			<version>${selenium.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-cucumber4-jvm</artifactId>
+			<version>${allure.version}</version>
 		</dependency>
 	</dependencies>
 

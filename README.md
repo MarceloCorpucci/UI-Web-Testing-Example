@@ -4,7 +4,7 @@ This project is intended to group several well known java libraries to create a 
 
 ### Prerequisites
 
-In order to start consuming this API, [Docker](https://www.docker.com/get-started) needs to be installed.
+In case you want to run this framework using RemoteWebDriver, [Docker](https://www.docker.com/get-started) needs to be installed.
 
 
 ### Installing
