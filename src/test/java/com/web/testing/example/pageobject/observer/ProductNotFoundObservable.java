@@ -1,10 +1,15 @@
 package com.web.testing.example.pageobject.observer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.openqa.selenium.WebDriver;
 
 import com.web.testing.example.pageobject.section.ProductNotFoundSection;
 
 public class ProductNotFoundObservable {
+	private static Logger logger = LoggerFactory.getLogger(ProductNotFoundObservable.class);
+	
 	private ObserverPage currentObserver;
 	private WebDriver driver;
 	private ProductNotFoundSection productNotFound;
@@ -13,7 +18,7 @@ public class ProductNotFoundObservable {
     	this.driver = observer.getBrowserInstance();
     	this.currentObserver = observer;
       
-    	System.out.println("ProductNotFoundObservable - setObserver(): " + String.valueOf(observer.getClass()));
+    	logger.info("Observable - setObserver(): " + String.valueOf(observer.getClass()));
       
     	return this;	
 	}
@@ -24,7 +29,7 @@ public class ProductNotFoundObservable {
     }
     
     public void update() {
-		System.out.println("ProductNotFoundObservable - update() - productNotFoundNotification(): " + String.valueOf(productNotFoundNotification()));
+    	logger.info("Observable - update() - productNotFoundNotification(): " + String.valueOf(productNotFoundNotification()));
 		currentObserver.gotProductNotFound(productNotFoundNotification());
     }	
 }

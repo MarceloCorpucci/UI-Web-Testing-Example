@@ -1,5 +1,8 @@
 package com.web.testing.example.pageobject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +13,7 @@ import com.web.testing.example.pageobject.observer.ObserverPage;
 import com.web.testing.example.pageobject.section.NewCustomerPopUp;
 
 public class HomePageObject implements ObserverPage {
+	private static Logger logger = LoggerFactory.getLogger(HomePageObject.class);
 	private WebDriver driver;
 	private NewCustomerPopUp newCustomerPopUp;
 	private By searchInput = By.id("search-key");
@@ -26,7 +30,7 @@ public class HomePageObject implements ObserverPage {
 		WebDriverWait waitForAvailability = new WebDriverWait(driver, 10);
 		waitForAvailability.until(ExpectedConditions.elementToBeClickable(searchInput));
 		
-		System.out.println("HomePageObject - open()");
+		logger.info("Method called - open(): " + url);
 		
 		return this;
 	}
@@ -42,7 +46,7 @@ public class HomePageObject implements ObserverPage {
 		WebDriverWait waitForAvailability = new WebDriverWait(driver, 10);
 		waitForAvailability.until(ExpectedConditions.urlContains("wholesale"));
 		
-		System.out.println("HomePageObject - search(productName)");
+		logger.info("Method called - search(productName): " + productName);
 		
 		return new SearchResultPageObject(driver);
 	}
@@ -57,7 +61,7 @@ public class HomePageObject implements ObserverPage {
 		this.newCustomerPopUp = new NewCustomerPopUp(driver);
 		
 		if(notification == true) {
-			System.out.println("HomePageObject - newCustomerPopUpAppeared(notification) returned true, closing popUp.");
+			logger.info("Observer notified - newCustomerPopUpAppeared(notification) returned true, closing popUp.");
 			newCustomerPopUp.close();
 		}
 		
@@ -67,7 +71,7 @@ public class HomePageObject implements ObserverPage {
 	@Override
 	public boolean gotProductNotFound(boolean notification) {
 		if(notification == true) {
-			System.out.println("HomePageObject - gotProductNotFound(notification) returned true, calling search(productName) again.");
+			logger.info("Observer notified - gotProductNotFound(notification) returned true, calling search(productName) again.");
 			this.search(productName);
 		}
 		

@@ -1,5 +1,9 @@
 package com.web.testing.example.glue;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -16,6 +20,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class BasicSearchGlue {
+	private static Logger logger = LoggerFactory.getLogger(BasicSearchGlue.class);
+	
 	private String basedOnExternalParam;
 	
 	private BrowserFactory browserFactory;
@@ -44,13 +50,13 @@ public class BasicSearchGlue {
 										.create(basedOnExternalParam)
 										.getDefaultVersion());
 		
-		System.out.println("setUp - Got Browser: " + basedOnExternalParam);
+		logger.info("Scenario setUp() - Got Browser: " + basedOnExternalParam + " ===========");
 		
 	}
 	
 	@Given("I've entered into AliExpress")
 	public void i_ve_entered_into_AliExpress() {
-		System.out.println("Given step - homePage opened: " + sutUrl);
+		logger.info("=========== Given step ===========");
 
 		homePage.open(sutUrl);
 		
@@ -63,7 +69,7 @@ public class BasicSearchGlue {
 
 	@When("I search {string}")
 	public void i_search(String entry) {
-		System.out.println("When step - entry: " + entry);
+		logger.info("=========== When step ===========");
 		
 		searchResultPage = homePage.search(entry);
 		
@@ -79,7 +85,7 @@ public class BasicSearchGlue {
 
 	@When("select the second article from the second page")
 	public void select_the_second_article_from_the_second_page() {
-		System.out.println("Then step");
+		logger.info("=========== And step ===========");
 		
 		searchResultPage.goToPage(2);
 		
@@ -100,10 +106,17 @@ public class BasicSearchGlue {
 
 	@Then("I should see at least {int} item available to be purchased")
 	public void i_should_see_at_least_item_available_to_be_purchased(Integer expectedAmount) {
+		logger.info("=========== Then step ===========");
+		
+		productPage.changeTab();
+		
 		popUpObservable
 			.setObserver(productPage)
 			.update();
 		
-		assertThat(productPage.getAvailability(), equalTo(expectedAmount));
+		int productQty = productPage.getAvailability();
+		logger.info("Asserting productQty: " + Integer.toString(productQty) + " | Expected Amount: " + expectedAmount);
+		
+		assertThat(productQty, equalTo(expectedAmount));
 	}
 }

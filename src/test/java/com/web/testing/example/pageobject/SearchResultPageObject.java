@@ -1,5 +1,8 @@
 package com.web.testing.example.pageobject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +13,8 @@ import com.web.testing.example.pageobject.observer.ObserverPage;
 import com.web.testing.example.pageobject.section.NewCustomerPopUp;
 
 public class SearchResultPageObject implements ObserverPage {
+	private static Logger logger = LoggerFactory.getLogger(SearchResultPageObject.class);
+	
 	private WebDriver driver;
 	private NewCustomerPopUp newCustomerPopUp;
 	private String pNumber;
@@ -21,17 +26,17 @@ public class SearchResultPageObject implements ObserverPage {
 	public SearchResultPageObject goToPage(int pageNumber) {
 		pNumber = Integer.toString(pageNumber);
 		
-		System.out.println("SearchResultPageObject - goToPage(pageNumber): " + pNumber);
+		logger.info("Method called - goToPage(pageNumber): " + pNumber);
 		
 		((JavascriptExecutor) driver).executeScript("window.scrollBy(0,document.body.scrollHeight)");
 		((JavascriptExecutor) driver).executeScript("window.scrollBy(0,-300)");
 		
-		System.out.println("SearchResultPageObject - goToPage(pageNumber): Scrolled to the bottom.");
+		logger.info("Method called - goToPage(pageNumber): Scrolled to the bottom.");
 		
 		WebDriverWait waitForElement = new WebDriverWait(driver, 10);
 		waitForElement.until(ExpectedConditions.presenceOfElementLocated(By.className("next-input")));
 		
-		System.out.println("SearchResultPageObject - goToPage(pageNumber): Wait called.");
+		logger.info("Method called - goToPage(pageNumber): Waiting for page button to be located.");
 		
 		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[3]/div/div[1]/div/div/button[2]")).click();
 		
@@ -39,7 +44,7 @@ public class SearchResultPageObject implements ObserverPage {
 	}
 	
 	public ProductPageObject openProductNumber(int productNumber) {
-		System.out.println("SearchResultPageObject - openProductNumber(productNumber)");
+		logger.info("Method called - openProductNumber(productNumber): " + Integer.toString(productNumber));
 		
 		String prdNumber = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]/ul/li[2]/div/div[2]/div[1]/div[1]/a"; // + Integer.toString(productNumber);
 		By prodTile = By.xpath(prdNumber);
@@ -49,7 +54,7 @@ public class SearchResultPageObject implements ObserverPage {
 		
 		driver.findElement(prodTile).click();
 		
-		System.out.println("SearchResultPageObject - openProductNumber(productNumber): Product selected.");
+		logger.info("Method called - openProductNumber(productNumber): Product selected.");
 		
 		return new ProductPageObject(driver);
 	}
@@ -64,7 +69,7 @@ public class SearchResultPageObject implements ObserverPage {
 		this.newCustomerPopUp = new NewCustomerPopUp(driver);
 		
 		if(notification == true) {
-			System.out.println("SearchResultPageObject - newCustomerPopUpAppeared(notification) returned true, closing popUp.");
+			logger.info("Observer notified - newCustomerPopUpAppeared(notification) returned true, closing popUp.");
 			newCustomerPopUp.close();
 		}
 		
@@ -74,7 +79,7 @@ public class SearchResultPageObject implements ObserverPage {
 	@Override
 	public boolean gotProductNotFound(boolean notification) {
 		if(notification == true) {
-			System.out.println("SearchResultPageObject - gotProductNotFound(notification) returned true, calling goToPage(Integer.parseInt(pNumber) again.");
+			logger.info("Observer notified - gotProductNotFound(notification) returned true, calling goToPage(Integer.parseInt(pNumber) again.");
 			this.goToPage(Integer.parseInt(pNumber));
 		}
 		

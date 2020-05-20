@@ -1,10 +1,15 @@
 package com.web.testing.example.pageobject.observer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.openqa.selenium.WebDriver;
 
 import com.web.testing.example.pageobject.section.NewCustomerPopUp;
 
 public class NewCustomerPopUpObservable {
+	private static Logger logger = LoggerFactory.getLogger(NewCustomerPopUpObservable.class);
+	
 	private ObserverPage currentObserver;
 	private WebDriver driver;
 	private NewCustomerPopUp popUp;
@@ -13,7 +18,7 @@ public class NewCustomerPopUpObservable {
     	this.driver = observer.getBrowserInstance();
     	this.currentObserver = observer;
 
-    	System.out.println("NewCustomer - setObserver(): " + String.valueOf(observer.getClass()));
+    	logger.info("Observable - setObserver(): " + String.valueOf(observer.getClass()));
       
     	return this;
 	}
@@ -24,7 +29,7 @@ public class NewCustomerPopUpObservable {
     }
     
     public void update() {
-		System.out.println("NewCustomer - update() - popUpNotification(): " + String.valueOf(popUpNotification()));
+    	logger.info("Observable - update() - popUpNotification(): " + String.valueOf(popUpNotification()));
 		currentObserver.newCustomerPopUpAppeared(popUpNotification());
     }
 }
