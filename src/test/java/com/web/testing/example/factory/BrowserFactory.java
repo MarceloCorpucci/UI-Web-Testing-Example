@@ -8,12 +8,16 @@ public class BrowserFactory implements AbstractFactory<Browser> {
 	
 	@Override
 	public Browser create(String browserType) {
+		logger.info("Factory method called - create(String browserType): " + browserType);
 		
 		if(browserType.equals("CHROME")) {
-			logger.info("Factory method called - create(String browserType): " + browserType);
-			
 			return new Chrome(); 
 		}
+		
+		if(browserType.equals("REMOTE_CHROME")) {
+			return new RemoteChrome(); 
+		}
+		
 		
 		return null;
 	}
