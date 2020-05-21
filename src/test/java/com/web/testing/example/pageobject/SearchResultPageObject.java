@@ -2,7 +2,8 @@ package com.web.testing.example.pageobject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -12,17 +13,29 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.web.testing.example.pageobject.observer.ObserverPage;
 import com.web.testing.example.pageobject.section.NewCustomerPopUp;
 
+@Component
 public class SearchResultPageObject implements ObserverPage {
 	private static Logger logger = LoggerFactory.getLogger(SearchResultPageObject.class);
 	
 	private WebDriver driver;
 	
 	private NewCustomerPopUp newCustomerPopUp;
-	
+	private ProductPageObject productPage;
 	private String pNumber;
 	
+	@Autowired
 	public SearchResultPageObject(WebDriver driver) {
 		this.driver = driver;
+	}
+	
+	@Autowired
+	public void setNewCustomerPopUp(NewCustomerPopUp newCustomerPopUp) {
+		this.newCustomerPopUp = newCustomerPopUp;
+	}
+	
+	@Autowired
+	public void setProductPageObject(ProductPageObject productPage) {
+		this.productPage = productPage;
 	}
 	
 	public SearchResultPageObject goToPage(int pageNumber) {
@@ -57,7 +70,8 @@ public class SearchResultPageObject implements ObserverPage {
 		
 		logger.info("Method called - openProductNumber(productNumber): Product selected.");
 		
-		return new ProductPageObject(driver);
+//		return new ProductPageObject(driver);
+		return productPage;
 	}
 	
 	@Override
@@ -67,7 +81,7 @@ public class SearchResultPageObject implements ObserverPage {
 
 	@Override
 	public boolean newCustomerPopUpAppeared(boolean notification) {
-		this.newCustomerPopUp = new NewCustomerPopUp(driver);
+//		this.newCustomerPopUp = new NewCustomerPopUp(driver);
 		
 		if(notification == true) {
 			logger.info("Observer notified - newCustomerPopUpAppeared(notification) returned true, closing popUp.");

@@ -21,6 +21,7 @@
 		<junit.version>4.12</junit.version>
 		<hamcrest.version>1.3</hamcrest.version>
 		<cucumber.version>4.8.1</cucumber.version>
+		<spring.version>5.1.4.RELEASE</spring.version>
 		<selenium.version>3.14.0</selenium.version>
 		<allure.version>2.13.3</allure.version>
 	</properties>
@@ -63,6 +64,20 @@
 			<artifactId>cucumber-junit</artifactId>
 			<version>${cucumber.version}</version>
 			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+    		<groupId>io.cucumber</groupId>
+    		<artifactId>cucumber-spring</artifactId>
+    		<version>${cucumber.version}</version>
+    		<scope>test</scope>
+		</dependency>
+
+		<dependency>
+  			<groupId>org.springframework</groupId>
+  			<artifactId>spring-context</artifactId>
+  			<version>${spring.version}</version>
+  			<scope>test</scope>
 		</dependency>
 
 		<dependency>

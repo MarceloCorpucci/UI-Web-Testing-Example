@@ -1,12 +1,12 @@
 package com.web.testing.example.glue;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.web.testing.example.factory.BrowserFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.web.testing.example.pageobject.HomePageObject;
 import com.web.testing.example.pageobject.ProductPageObject;
 import com.web.testing.example.pageobject.SearchResultPageObject;
@@ -22,10 +22,6 @@ import io.cucumber.java.en.When;
 public class BasicSearchGlue {
 	private static Logger logger = LoggerFactory.getLogger(BasicSearchGlue.class);
 	
-	private String basedOnExternalParam;
-	
-	private BrowserFactory browserFactory;
-	
 	private NewCustomerPopUpObservable popUpObservable;
 	private ProductNotFoundObservable productNotFoundObservable;
 	
@@ -35,18 +31,24 @@ public class BasicSearchGlue {
 	
 	private String sutUrl;
 	
+	@Autowired
+	public BasicSearchGlue(NewCustomerPopUpObservable popUpObservable,
+						   ProductNotFoundObservable productNotFoundObservable,
+						   HomePageObject homePage,
+						   SearchResultPageObject searchResultPage,
+						   ProductPageObject productPage) {
+		
+		this.popUpObservable = popUpObservable;
+		this.productNotFoundObservable = productNotFoundObservable;
+		this.homePage = homePage;
+		this.searchResultPage = searchResultPage;
+		this.productPage = productPage;
+	}
+	
 	@Before
 	public void setUp() {
-		basedOnExternalParam = System.getProperty("browser");
-		logger.info("Scenario setUp() - Browser defined in env. variable: " + basedOnExternalParam);
-
 		sutUrl = System.getProperty("sutUrl");
 		logger.info("Scenario setUp() - SUT Url defined in env. variable: " + sutUrl);
-		
-		browserFactory = new BrowserFactory();
-		homePage = new HomePageObject(browserFactory
-										.create(basedOnExternalParam)
-										.getDefaultVersion());
 	}
 	
 	@Given("I've entered into AliExpress")
@@ -55,7 +57,6 @@ public class BasicSearchGlue {
 
 		homePage.open(sutUrl);
 		
-		popUpObservable = new NewCustomerPopUpObservable();
 		popUpObservable
 			.setObserver(homePage)
 			.update();
@@ -71,7 +72,6 @@ public class BasicSearchGlue {
 			.setObserver(searchResultPage)
 			.update();
 		
-		productNotFoundObservable = new ProductNotFoundObservable();
 		productNotFoundObservable
 			.setObserver(homePage)
 			.update();

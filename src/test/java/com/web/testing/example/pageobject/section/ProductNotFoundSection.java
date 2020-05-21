@@ -5,11 +5,15 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductNotFoundSection {
 	private WebDriver driver;
 	private By errrorIcon = By.className("next-icon-error");
 	
+	@Autowired
 	public ProductNotFoundSection(WebDriver driver) {
 		this.driver = driver;
 	}

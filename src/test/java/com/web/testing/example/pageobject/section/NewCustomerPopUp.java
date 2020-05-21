@@ -5,11 +5,15 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class NewCustomerPopUp {
 	private WebDriver driver;
 	private By closeButton = By.className("next-dialog-close");
 	
+	@Autowired
 	public NewCustomerPopUp(WebDriver driver) {
 		this.driver = driver;
 	}

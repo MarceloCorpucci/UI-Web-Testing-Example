@@ -2,6 +2,8 @@ package com.web.testing.example.pageobject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
@@ -14,6 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.web.testing.example.pageobject.observer.ObserverPage;
 import com.web.testing.example.pageobject.section.NewCustomerPopUp;
 
+@Component
 public class ProductPageObject implements ObserverPage {
 	private static Logger logger = LoggerFactory.getLogger(ProductPageObject.class);
 	
@@ -23,8 +26,14 @@ public class ProductPageObject implements ObserverPage {
 	
 	private By itemAmountLocator =  By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[2]/div[8]/span/span/span[2]/input");
 	
+	@Autowired
 	public ProductPageObject(WebDriver driver) {
 		this.driver = driver;
+	}
+	
+	@Autowired
+	public void setNewCustomerPopUp(NewCustomerPopUp newCustomerPopUp) {
+		this.newCustomerPopUp = newCustomerPopUp;
 	}
 	
 	public ProductPageObject changeTab() {
@@ -63,7 +72,7 @@ public class ProductPageObject implements ObserverPage {
 
 	@Override
 	public boolean newCustomerPopUpAppeared(boolean notification) {
-		this.newCustomerPopUp = new NewCustomerPopUp(driver);
+//		this.newCustomerPopUp = new NewCustomerPopUp(driver);
 		
 		if(notification == true) {
 			logger.info("Observer notified - newCustomerPopUpAppeared(notification) returned true, closing popUp.");
